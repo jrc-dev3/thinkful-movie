@@ -8,6 +8,11 @@ const list = async (req, res) => {
   res.json({ data });
 };
 
+const listAll = async (req,res) => {
+  const data = await theatersSvc.listAll()
+  res.json({data})
+}
+
 const destory = async (req,res) => {
     const reviewId = res.locals.reviewId
     const data = await theatersSvc.delete(reviewId)
@@ -17,5 +22,6 @@ const destory = async (req,res) => {
 }
 module.exports = {
   list: [moviesCtl.validMovieId, moviesCtl.movieExists, tryCatchError(list)],
+  listAll: [tryCatchError(listAll)],
   delete: tryCatchError(destory)
 };

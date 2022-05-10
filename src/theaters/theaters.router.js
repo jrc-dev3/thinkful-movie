@@ -4,7 +4,7 @@ const theatersCtl = require("./theaters.ctl")
 
 router
     .route("/")
-    .get(theatersCtl.list)
+    .get(theatersCtl.listAll)
     .all(notAllowed)
 
 
