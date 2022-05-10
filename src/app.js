@@ -5,6 +5,7 @@ const reviewsRouter = require("./reviews/reviews.router")
 const theatersRouter = require("./theaters/theaters.router");
 const logger = require("./utils/logger");
 const cors = require("cors")
+const appCors = cors({origin: ['http://localhost:3000']})
 const pathNotFoundHandler = (req,res,next) => {
     next({
         status: 404,
@@ -17,13 +18,12 @@ const errorHandler = (err,req,res,next) => {
 }
 const app = express();
 
+
 app.use(logger)
-// app.use(cors({origin: ['http://localhost']}))
-app.use(cors())
+app.use(appCors)
 app.use(express.json())
 
-app.options('*', cors())
-
+// app.options('*',appCors)
 app.use("/movies", moviesRouter)
 app.use("/reviews", reviewsRouter)
 app.use("/theaters", theatersRouter)
