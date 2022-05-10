@@ -36,7 +36,6 @@ module.exports = {
       password : DATABASE_PW,
       database : DATABASE_USER
     },
-    connection: DATABASE_URL,
     pool: { min: 0, max: 5 },
     migrations: {
       directory: path.join(__dirname, "src", "db", "migrations"),
