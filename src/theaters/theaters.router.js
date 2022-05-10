@@ -1,11 +1,11 @@
 const router = require("express").Router({mergeParams: true})
-const notAllowed = require("../utils/notAllowed")
+const methodNotAllowed = require("../utils/methodNotAllowed")
 const theatersCtl = require("./theaters.ctl")
 
 router
     .route("/")
     .get(theatersCtl.listAll)
-    .all(notAllowed)
+    .all(methodNotAllowed)
 
 
 module.exports = router
