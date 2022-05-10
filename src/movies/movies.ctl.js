@@ -27,12 +27,12 @@ const movieExists = async (req, res, next) => {
   req.log.info("Checking if movie exists..");
   req.log.debug(`Checking if movie ${movieId} exists..`);
 
-  const data = await moviesSvc.read(movieId);
+  const movie = await moviesSvc.read(movieId);
 
-  req.log.trace({ __filename, methodName, return: true, data });
+  req.log.trace({ __filename, methodName, return: true, movie });
 
-  if (data.movie_id){
-    res.locals.movie = data;
+  if (movie && movie.movie_id){
+    res.locals.movie = movie;
     return next()
   } 
 

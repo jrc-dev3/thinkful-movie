@@ -8,5 +8,4 @@ router
     .delete(reviewsCtl.delete)
     .all(notAllowed)
 
-
 module.exports = router
