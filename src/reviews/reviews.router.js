@@ -1,3 +1,12 @@
-const router = require("express").Router()
+const router = require("express").Router({mergeParams: true})
+const notAllowed = require("../utils/notAllowed")
+const reviewsCtl = require("./reviews.ctl")
 
-modules.export = router
+router
+    .route("/:reviewId")
+    .put(reviewsCtl.update)
+    .delete(reviewsCtl.delete)
+    .all(notAllowed)
+
+
+module.exports = router

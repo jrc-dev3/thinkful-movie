@@ -2,7 +2,8 @@ if (process.env.USER) require("dotenv").config();
 const express = require("express");
 const moviesRouter = require("./movies/movies.router")
 const reviewsRouter = require("./reviews/reviews.router")
-const theatersRouter = require("./theaters/theaters.router")
+const theatersRouter = require("./theaters/theaters.router");
+const logger = require("./utils/logger");
 const pathNotFoundHandler = (req,res,next) => {
     next({
         status: 404,
@@ -15,9 +16,13 @@ const errorHandler = (err,req,res,next) => {
 }
 const app = express();
 
+app.use(logger)
+app.use(express.json())
+
 app.use("/movies", moviesRouter)
 app.use("/reviews", reviewsRouter)
 app.use("/theaters", theatersRouter)
+
 app.use(pathNotFoundHandler)
 app.use(errorHandler)
 
