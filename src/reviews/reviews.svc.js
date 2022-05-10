@@ -9,6 +9,9 @@ const addCriticCategory = mapProperties({
   organization_name: "critic.organization_name",
 });
 const addCriticCategory_read = mapProperties({
+  // critic_id: "critic.critic_id",
+  // critic_created_at: "critic.created_at",
+  // critic_updated_at: "critic.updated_at",
   preferred_name: "critic.preferred_name",
   surname: "critic.surname",
   organization_name: "critic.organization_name",
@@ -18,7 +21,11 @@ const read = (reviewId, withCritic = false) => {
   if (withCritic) {
     return knex("reviews as r")
       .join("critics as c", "r.critic_id", "c.critic_id")
-      .select("r.*", "c.preferred_name", "c.surname", "c.organization_name")
+      .select(
+        "*",
+        "c.created_at as critic_created_at",
+        "c.updated_at as critic_updated_at"
+      )
       .where({ review_id: reviewId })
       .then((res) => res.map((review) => addCriticCategory_read(review)))
       .then((res) => res[0]);
@@ -32,7 +39,11 @@ const read = (reviewId, withCritic = false) => {
 const list = (movieId) => {
   return knex("reviews as r")
     .join("critics as c", "r.critic_id", "c.critic_id")
-    .select("*")
+    .select(
+      "*",
+      "c.created_at as critic_created_at",
+      "c.updated_at as critic_updated_at"
+    )
     .where({ movie_id: movieId })
     .then((res) => res.map((review) => addCriticCategory(review)));
 };
