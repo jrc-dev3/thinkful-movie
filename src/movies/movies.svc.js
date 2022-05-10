@@ -5,7 +5,7 @@ const list = (isShowing = false) => {
     return knex("movies as m")
             .join("movies_theaters as mt", "mt.movie_id", "m.movie_id")
             .select(
-              "m.movie_id as id",
+              "m.movie_id as movie_id",
               "m.title",
               "m.runtime_in_minutes",
               "m.rating",
@@ -13,14 +13,14 @@ const list = (isShowing = false) => {
               "m.image_url"
               )
             .distinct()
-            .orderBy("id")
+            .orderBy("movie_id")
             .where({ is_showing: true });
     
   } 
 
   return knex("movies as m")
           .select(
-            "m.movie_id as id",
+            "m.movie_id as movie_id",
             "m.title",
             "m.runtime_in_minutes",
             "m.rating",
